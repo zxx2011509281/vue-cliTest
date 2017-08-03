@@ -43,8 +43,7 @@
 
 <script>
 import axios from 'axios'
-import $ from './assets/jquery-3.2.0.js'
-import common from './assets/common.js'
+import $ from '../static/js/jquery2.js'
 export  default {
 	data(){
 		  return {
@@ -64,7 +63,7 @@ export  default {
 		const that=this;
 		//获取对应用户可以查看权限
 		//const url='/manager/user/menus';
-		const url='/user/menus';
+		/*const url='/user/menus';
 		const Data={};
 		common.$post(url,Data,function(data){
 			if(Object.prototype.toString.call(data) === "[object String]"){
@@ -76,12 +75,37 @@ export  default {
 				return false;
 			}
 			that.menus=data.data.menus;
-		})
+		})*/
+
+		$.ajax({
+		  type: 'POST',
+		  url: 'http://javaport.bbtree.com/oa/user/menus',
+		  data: {},
+		  xhrFields:{
+			withCredentials:true
+		  },
+		  crossDomain: true,
+		  success: function(mess,textStatus,xhr){
+		  	if(mess.code=='888'){
+		  		// alert('登录超时，请重新登录');
+		  		window.location.href = "./index.html";
+		  		return false;
+		  	}else{
+		  		that.menus=mess.data.menus;
+		  	}
+		  },
+		  error:function(err,textStatus,xhr){
+		  	console.log(err);
+		  }
+		});
+
 	},
 	mounted(){
 		const that=this;
 		//显示用户
-		$('.userName').text(common.session.get('name'));
+		// $('.userName').text(common.session.get('name'));
+		$('.userName').text( window.sessionStorage.getItem('name'));
+
 		
 		//添加activity样式
 		$('.nav').on('click','.navMain>li>span',function(){
@@ -136,7 +160,7 @@ export  default {
 		})
 		//登出
 		$('.logoOut').click(function(){
-			const url='/user/logout';
+			/*const url='/user/logout';
 			const Data=''
 			common.$post(url,Data,function(mess){	
 				if(mess.code=='000'){
@@ -144,7 +168,31 @@ export  default {
 					window.location.href = "./index.html";
 				}
 				
-			})
+			})*/
+				$.ajax({
+					  type: 'POST',
+					  url: 'http://javaport.bbtree.com/oa/user/logout',
+					  data: '',
+					  xhrFields:{
+						withCredentials:true
+					  },
+					  crossDomain: true,
+					  success: function(mess,textStatus,xhr){
+					  	if(mess.code=='888'){
+					  		// alert('登录超时，请重新登录');
+					  		window.location.href = "./index.html";
+					  		return false;
+					  	}else{
+					  		if(mess.code=='000'){
+								alert('退出成功')
+								window.location.href = "./index.html";
+							}
+					  	}
+					  },
+					  error:function(err,textStatus,xhr){
+					  	console.log(err);
+					  }
+					});
 			
 		})
 
@@ -160,7 +208,9 @@ export  default {
 </script>
 
 <style scoped>
-
+ul,li{
+	list-style: none;
+}
 
 .all{
     background: #f7f7f7;
@@ -276,7 +326,7 @@ a{
 	position:absolute;
 	left:30px;
 	top:18px;
-	background:url('/static/img.png') 0 -29px no-repeat;
+	background:url('/static/images/img.png') 0 -29px no-repeat;
 }
 
 .userName{
@@ -295,7 +345,7 @@ a{
 	position:absolute;
 	right:0;
 	top:0px;
-	background:url('/static/img.png') -140px 0 no-repeat;
+	background:url('/static/images/img.png') -140px 0 no-repeat;
 }
 /*软件升级end*/
 
@@ -335,13 +385,13 @@ a{
 .nav ul.navMain>li>a.sj,.navMain>li>ul>li>a.sj,.navMain>li>ul>li>ul>li>a.sj{
     color: #999;
 
-    background: #fff url(/static/sjx.png) no-repeat 178px 18px;
+    background: #fff url(/static/images/sjx.png) no-repeat 178px 18px;
     background-size: 9px 9px;
 }
 .nav ul.navMain>li>a.dsj,.navMain>li>ul>li>a.dsj,.navMain>li>ul>li>ul>li>a.dsj{
     color: #999;
 
-    background: #fff url(/static/sjx2.png) no-repeat 178px 18px;
+    background: #fff url(/static/images/sjx2.png) no-repeat 178px 18px;
     background-size: 9px 9px;
 }
 /*第三极菜单end*/
@@ -349,11 +399,11 @@ a{
 /*三角形*/
 .nav ul.navMain>li>span.sj{
     color: #999;
-    background: #fff url('/static/sjx.png') no-repeat 178px 18px;
+    background: #fff url('/static/images/sjx.png') no-repeat 178px 18px;
 }
 .nav ul.navMain>li>span.dsj{
     color: #999;
-    background: #fff url('/static/sjx2.png') no-repeat 178px 18px;
+    background: #fff url('../static/images/sjx2.png') no-repeat 178px 18px;
 }
 .nav ul.navMain>li.activity>span,.nav ul.navMain>li.activity>a {
     color: #999;

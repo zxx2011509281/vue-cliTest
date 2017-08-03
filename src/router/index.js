@@ -15,7 +15,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-  	{name:'app', path:'*', redirect: '/bbb'},
+  	// {name:'app', path:'*', redirect: '/bbb'},
     {
       path: '/bbb',
       name: 'Hello',

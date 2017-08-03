@@ -2,7 +2,7 @@
 <div>
   <div class="logInContainer">
     <div class="logInHeader">
-      <img class="logo" src='/static/logo.png' alt="logo"/>
+      <img class="logo" :src='logoSrc' alt="logo"/>
     </div>      
     <div class="login">     
       <ul>
@@ -32,15 +32,13 @@
 </template>
 
 <script>
-// import $ from './statics/js/jquery-vendor.js'//jquery
-// import common from './statics/js/common.js'//公用插件
 
 import axios from 'axios'
 import Qs from 'qs'
 export  default {
   data(){
       return {
-        logoSrc:require('./static/logo.png'),
+        logoSrc:require('../static/images/logo.png'),
         userName:'',
         password:''
       }
@@ -159,7 +157,7 @@ div{
     height: 375px;
     box-sizing: border-box;
     padding-top: 104px;
-    background: #68c14d url(/static/cloud.png) no-repeat center 315px;
+    background: #68c14d url('/static/images/cloud.png') no-repeat center 315px;
 }
 
 .logInHeader .logo {
@@ -191,13 +189,13 @@ div{
     
 }
 .login .userName {
-    background: #fff url(/static/user.png) no-repeat 20px 10px;
+    background: #fff url('/static/images/user.png') no-repeat 20px 10px;
     background-size: 16px 19px;
     text-align: left;
     background-color: rgb(250, 255, 189);
 }
 .login .password {
-    background: #fff url(/static/lock.png) no-repeat 20px 10px;
+    background: #fff url('/static/images/lock.png') no-repeat 20px 10px;
     background-size: 16px 19px;
     text-align: left;
     background-color: rgb(250, 255, 189);

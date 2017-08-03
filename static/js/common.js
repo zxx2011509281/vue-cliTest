@@ -1,4 +1,4 @@
-import $ from './jquery-3.2.0.js'
+// import $ from './jquery-3.2.0.js'
 //域名前缀
 var config={
 	  // apiDomain: "http://120.26.210.192:7155"// 数据地址
